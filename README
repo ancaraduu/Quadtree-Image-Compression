@@ -1,0 +1,90 @@
+        Tema 2 SDA
+        Radu Anca - 315 CB
+
+        TASK 1 si TASK 2
+        TASK 1 se apeleaza prin comanda
+        ./quadtree -c1 <prag> <input> <output>
+        TASK 2 se apeleaza prin comanda
+        ./quadtree -c2 <prag> <input> <output>
+        Indiferent de faptul ca s-a apelat task-ul 1 sau 2:
+        Se deschide fisierul de input si se citeste din el tipul imaginii,
+    dimensiunile imaginii si valoarea maxima pe care o poate lua o culoare.
+    Apoi se aloca spatiu pentru o matrice formata din elemente de tipul 
+    structurii Culoare, ce contin valoarile pentru rosu, verde si albastru.
+    Se citesc din fisier dimensiune*dimensiune astfel de elemente.
+        *Crearea arborelui cuaternar*
+        Va fi apelata functia de creare recursiva a arborelui. Aceasta va fi ape-
+    lata cu parametrii: arborele, coordonatele liniei si coloanei (0,0), dimen-
+    siunea intregii imagini, pragul, matricea de culori, variabila in care se va
+    retine dimensiunea minima a unei portiuni, o variabila ce va retine numarul de
+    frunze, o variabila ce va retine dimensiunea maxima a unei portiuni, si nivelul
+    primului nod (0).
+        In aceasta functie, calculam mediile culorilor pe regiunea nodului, iar apoi
+    scorul. Daca scorul este mai mic decat pragul impus, nodul devine tip frunza si
+    contine mediile culorilor calculate.
+        Daca nu, nodul devine tip 0 si este impartit mai departe in 4, se aloca memo-
+    rie pentru fiii nodului si se apeleaza din nou functia pentru fiecare fiu cu noi
+    coordonate si cu dimensiunea impartita la 2.
+        *Arborele cuaternar s-a creat*
+        Eliberam memoria alocata matricei de culori.
+        
+        Daca s-a apelat task-ul 1, aflam numarul de niveluri ale arborelui
+    impartind succesiv la 2 dimensiunea originala a imaginii, pana cand ajungem la 
+    dimensiunea celui mai mic pixel.
+        Scriem in fisierul de output numarul de niveluri, numarul de frunze, si di-
+    mensiunea celui mai mare pixel.
+
+        Daca s-a apelat task-ul 2, se apeleaza functia de comprimare, folosind arbo-
+    rele cuaternar creat pe baza imaginii.
+        Se scrie in fisierul de compresie dimensiunea imaginii, si cu ajutorul unei
+    structuri de coada parcurgem nodurile arborelui. Introducem in coada radacina ar-
+    borelui.
+        Folosind un while scoatem cate un nod din coada. Cand dam de un nod de tip 1 
+    ii scriem in fisier tipul si valorile culorilor, iar cand dam de un nod de tip 0
+    ii scriem in fiser tipul si ii introducem fiii in coada. Apoi stergem nodul din
+    coada si eliberam meoria ocupata de acesta, intrucat nu vom mai avea nevoie de el.
+        Se distruge coada.
+        Se inchide fisierul de output.
+
+        Se elibereaza spatiul alocat.
+        In cazul task-ului 1 se distruge arborele.
+
+
+        TASK 3
+        Se apeleaza prin comanda
+        ./quadtree -d <input> <output>
+        Se deschid fisierele de input si output.
+        Se citeste din fisier dimensiunea imaginii.
+        Se citeste prima valoare.
+            Daca are valoarea 1, se citesc si valorile culorilor ce o urmeaza si se 
+        creeaza un nod de tip 1 cu acestea ce reprezinta radacina arborelui.
+            Daca are valoarea 0, radacina arborelui este un nod de tip 0.
+        Cream un pointer catre ultimul nod.
+        Initializam cu primul nod o coada ce ne va ajuta sa cream arborele.
+        Cat timp citim valori din fisier, daca valoarea e 1 adaugam in arbore un nod
+    de tip 1 si ii citim culorile, daca nu, adaugam in arbore un nod de tip 0 pe care
+    il adaugam si in coada. Pointerul trece la urmatorul nod din coada atunci cand am
+    citit toti fiii nodului spre care pointa inainte. Apoi il scoatem din coada pe cel
+    din urma.
+        Distrugem coada.
+        Scriem in fisierul de decomprimare tipul imaginii, dimensiunile si 255.
+        Initilizam o coada de tipul 2. Structura unei celule din acest tip de coada con-
+    tine si valori pentru coordonatele din sus stanga a regiunii din matricea de culori
+    pe care nodul din aceeasi celula de coada le are.
+        Introducem in coada primul nod al arborelui.
+        Alocam spatiu pentru matricea de culori.
+        Daca arborele creat are radacina de tipul 1, umplem toata matricea cu valorile cu-
+    lorilor aflate in radacina.
+        Daca nu, scoatem din coada nodul.
+        Cat timp putem scoate din coada, verificam tipurile fiilor nodului scos.
+        Daca un fiu are tipul 1, umplem partea din matrice ce ii corespunde.
+        Daca un fiu are tipul 0, introducem in coada fiul, alaturi de coordonatele la care
+    se afla si dimensiunea nodului tata impartita la 2.
+        Extragem din coada tatal dupa ce am verificat toti copiii.
+
+        Distrugem coada.
+        Scriem in fisier valorile din matricea de culori creata.
+        Eliberam spatiul alocat.
+        Inchidem fisierele.
+
+        La rularea pe calculatorul propriu am obtinut maximul de 80 de puncte.
